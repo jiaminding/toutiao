@@ -1,0 +1,35 @@
+<html>
+<body>
+<pre>
+    hello vm
+    $!{value}
+
+    #foreach ($color in $colors)
+        Color $!foreach.count: $!color
+    #end
+
+    #foreach($key in $map.keySet())
+        map $!foreach.count: $!map.get($!key)
+    #end
+
+    #foreach($entry in $map.entrySet())
+        map $!foreach.count $!entry.key : $!entry.value
+    #end
+
+    User: $!{User.name}
+    User: $!{User.getName()}
+
+#set($title = "djm")
+    Parse: #parse("header.vm")
+
+    #macro(render_color, $color, $index)
+        Color By Macro $index, $color
+    #end
+
+    #foreach($color in $colors)
+        #render_color($color, $foreach.count)
+    #end
+
+</pre>
+</body>
+</html>
