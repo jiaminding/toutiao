@@ -23,3 +23,14 @@ CREATE TABLE `news` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+DROP TABLE IF EXISTS `login_ticket`;
+CREATE TABLE `login_ticket` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `ticket` varchar(45) COLLATE utf8_bin NOT NULL,
+  `expired` datetime NOT NULL,
+  `status` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ticket_UNIQUE` (`ticket` ASC) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
