@@ -2,10 +2,8 @@ package com.djm.dao;
 
 import com.djm.model.News;
 import com.djm.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -23,4 +21,10 @@ public interface NewsDAO {
     int addNews(News news);
 
     List<News> selectByUserIdAndOffset(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
+
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
+    News getById(int id);
+
+    @Update({"update ", TABLE_NAME, " set count=#{count} where id=#{id}"})
+    int updateCommentCount(int id, int count);
 }

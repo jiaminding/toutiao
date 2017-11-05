@@ -11,11 +11,6 @@
 
     <link rel="stylesheet" media="all" href="/styles/style.css">
 
-    <script src="/scripts/hm.js"></script>
-    <script src="/scripts/detail.js"></script>
-
-    <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/scripts/jquery.qrcode.min.js"></script>
 </head>
 <body class="welcome_index">
 
@@ -40,7 +35,6 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class=""><a href="http://nowcoder.com/explore">发现</a></li>
 
-                    <li><a href="http://nowcoder.com/signin">站内信</a></li>
                     #if ($user)
                     <li class="js-login"><a href="javascript:void(0);">$!{user.name}</a></li>
                     #else
@@ -94,7 +88,7 @@
                             </div>
                             <div class="media">
                                 <div class="media-left">
-                                    <img class="media-object app-qrcode" src="../images/res/qrcode.png" alt="App qrcode web index">
+                                    <img class="media-object app-qrcode" src="/images/res/qrcode.png" alt="App qrcode web index">
                                 </div>
                                 <div class="media-body">
                                     <div class="buttons">
@@ -125,9 +119,9 @@
                         <i class="fa icon-calendar"></i>
                         <span>头条资讯 &nbsp; $date.format('yyyy-MM-dd', $vo.news.createdDate)</span>
                     </h3>
-                    #end
-                    <div class="posts">
 
+                    <div class="posts">
+                    #end
                         <div class="post">
                             <div class="votebar">
                                 <button class="click-like up" aria-pressed="false" title="赞同"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
@@ -226,6 +220,7 @@
       </div>
     </div>
   </div>
+
 
     <script>window.loginpop = $!{pop};</script>
     <script type="text/javascript" src="/scripts/jquery.js"></script>
