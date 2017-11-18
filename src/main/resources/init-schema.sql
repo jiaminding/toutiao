@@ -34,3 +34,17 @@ CREATE TABLE `login_ticket` (
   UNIQUE KEY `ticket_UNIQUE` (`ticket` ASC) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text COLLATE utf8_bin NOT NULL,
+  `created_date` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `entity_id` int(11) NOT NULL,
+  `entity_type` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `entity_index` (`entity_id`,`entity_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+

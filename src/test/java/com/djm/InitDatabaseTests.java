@@ -1,11 +1,7 @@
 package com.djm;
 
-import com.djm.dao.LoginTicketDAO;
-import com.djm.dao.NewsDAO;
-import com.djm.dao.UserDAO;
-import com.djm.model.LoginTicket;
-import com.djm.model.News;
-import com.djm.model.User;
+import com.djm.dao.*;
+import com.djm.model.*;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,6 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sun.security.krb5.internal.Ticket;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.Date;
 import java.util.Random;
 
@@ -30,6 +27,11 @@ public class InitDatabaseTests {
     NewsDAO newsDAO;
     @Autowired
     LoginTicketDAO loginTicketDAO;
+    @Autowired
+    CommentDAO commentDAO;
+    @Autowired
+    MessageDAO messageDAO;
+
 
     @Test
     public void testSelect() {
@@ -61,6 +63,17 @@ public class InitDatabaseTests {
             news.setTitle(String.format("TITLE{%d}",i));
             news.setLink(String.format("http://www.nowcoder.com/%d.html",i));
             newsDAO.addNews(news);
+
+            for (int j = 0; j < 3; j++) {
+                Comment comment = new Comment();
+                comment.setContent("comment" + String.valueOf(j));
+                comment.setCreatedDate(new Date());
+                comment.setEntityId(news.getId());
+                comment.setEntityType(EntityType.ENTITY_NEWS);
+                comment.setUserId(i + 1);
+                comment.setStatus(0);
+                commentDAO.addComment(comment);
+            }
 
             LoginTicket ticket = new LoginTicket();
             ticket.setStatus(0);
