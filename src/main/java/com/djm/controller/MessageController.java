@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,9 @@ public class MessageController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    HostHolder hostHolder;
 
     @RequestMapping(value = "/msg/addMessage", method = RequestMethod.POST)
     @ResponseBody
@@ -76,6 +80,28 @@ public class MessageController {
             logger.error("获取详情消息失败" + e.getMessage());
         }
         return "letterDetail";
+    }
+
+    @RequestMapping(value = "/msg/list", method = RequestMethod.GET)
+    public String conversationDetail(Model model) {
+        try {
+            int localUserId = hostHolder.getUser().getId();
+            List<ViewObject> conversations = new ArrayList<ViewObject>();
+            List<Message> conversationList = messageService.getConversationList(localUserId, 0, 10);
+            for (Message msg : conversationList) {
+                ViewObject vo = new ViewObject();
+                vo.set("conversation", msg);
+                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
+                User user = userService.getUser(targetId);
+                vo.set("user", user);
+                vo.set("unreadCount", messageService.getConversationUnreadCount(localUserId, msg.getConversationId()));
+                conversations.add(vo);
+            }
+            model.addAttribute("conversations", conversations);
+        } catch (Exception e) {
+            logger.error("获取站内信列表失败" + e.getMessage());
+        }
+        return "letter";
     }
 
 }

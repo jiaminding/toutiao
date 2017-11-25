@@ -33,7 +33,7 @@ public interface MessageDAO {
     @Select({"select count(id) from", TABLE_NAME, "where to_id=#{userId} and has_read=0 and conversation_id=#{conversationId}"})
     int getConversationUnreadCount(@Param("userId") int userId, @Param("conversationId") String conversationId);
 
-    @Select({"select", INSERT_FIELDS, "count(id) as id from (select", SELECT_FIELDS, "from", TABLE_NAME, "where from_id=#{userId} or to_id=#{userId} order by id desc) as tt group by conversation_id order created_date desc limit #{offset}, #{limit}" })
+    @Select({"select", INSERT_FIELDS, ", count(id) as id from (select", SELECT_FIELDS, "from", TABLE_NAME, "where from_id=#{userId} or to_id=#{userId} order by id desc) as tt group by conversation_id order by created_date desc limit #{offset}, #{limit}" })
     List<Message> getConversationList(@Param("userId") int userId,
                                       @Param("offset") int offset,
                                       @Param("limit") int limit);

@@ -2,6 +2,7 @@ package com.djm.service;
 
 import com.djm.dao.CommentDAO;
 import com.djm.model.Comment;
+import com.djm.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,4 +34,5 @@ public class CommentService {
     public void deleteComment(int entityId, int entityType) {
         commentDAO.updateStatus(entityId, entityType, 1);
     }
+
 }

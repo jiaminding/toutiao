@@ -60,7 +60,7 @@ public class InitDatabaseTests {
             news.setImage(String.format("http://images.nowcoder.com/head/%dm.png", random.nextInt(1000)));
             news.setLikeCount(i + 1);
             news.setUserId(i + 1);
-            news.setTitle(String.format("TITLE{%d}",i));
+            news.setTitle(String.format("题目{%d}",i));
             news.setLink(String.format("http://www.nowcoder.com/%d.html",i));
             newsDAO.addNews(news);
 
